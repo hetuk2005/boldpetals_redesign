@@ -1,86 +1,112 @@
 import React from 'react';
-import { Heart, Plus, Eye } from 'lucide-react';
+import { Heart, Plus, Eye, Sparkles } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { useWishlist } from '../context/WishlistContext';
+import { playChime } from '../utils/sound';
 
 export default function ProductCard({ product, onQuickView }) {
   const { addToCart } = useCart();
   const { toggleWishlist, isInWishlist } = useWishlist();
   const inWishlist = isInWishlist(product.id);
 
+  const handleAdd = (e) => {
+    e.stopPropagation();
+    playChime('unboxing');
+    addToCart(product);
+  };
+
+  const handleWishlist = (e) => {
+    e.stopPropagation();
+    playChime('click');
+    toggleWishlist(product.id);
+  };
+
   return (
-    <div className="product-card group bg-white rounded-2xl overflow-hidden border border-brand-rose/15 shadow-sm hover:shadow-hover transition-all duration-300 flex flex-col justify-between">
+    <div className="product-card group relative bg-atelier-velvet/60 rounded-2xl overflow-hidden border border-white/10 hover:border-atelier-rose/40 transition-all duration-500 flex flex-col justify-between hover:shadow-glow-rose">
+      
       {/* Top Image Box */}
-      <div className="relative overflow-hidden aspect-[4/5] bg-stone-100">
+      <div className="relative overflow-hidden aspect-[4/5] bg-atelier-obsidian">
         <img
           src={product.image}
           alt={product.title}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-108 filter brightness-95 group-hover:brightness-100"
         />
-        
+        <div className="absolute inset-0 bg-gradient-to-t from-atelier-obsidian/80 via-transparent to-transparent"></div>
+
         {/* Badge */}
         {product.badge && (
-          <span className="absolute top-3 left-3 bg-brand-wine text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider shadow-sm">
+          <span className="absolute top-3 left-3 bg-atelier-wine/90 backdrop-blur-md text-atelier-pearl font-syne text-[9px] font-bold px-2.5 py-1 rounded-full uppercase tracking-widest border border-white/10">
             {product.badge}
           </span>
         )}
 
         {/* Wishlist Button */}
         <button
-          onClick={() => toggleWishlist(product.id)}
-          className={`absolute top-3 right-3 w-8 h-8 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center transition-colors shadow-sm ${
-            inWishlist ? 'text-brand-rose' : 'text-stone-500 hover:text-brand-rose'
+          onClick={handleWishlist}
+          className={`absolute top-3 right-3 w-8 h-8 rounded-full glass-card flex items-center justify-center transition-all ${
+            inWishlist ? 'text-atelier-rose border-atelier-rose' : 'text-atelier-sand hover:text-atelier-rose'
           }`}
-          title="Wishlist"
+          title="Save to Wishlist"
         >
-          <Heart className="w-4 h-4" fill={inWishlist ? 'currentColor' : 'none'} />
+          <Heart className="w-3.5 h-3.5" fill={inWishlist ? 'currentColor' : 'none'} />
         </button>
 
-        {/* Hover Quick View Trigger */}
-        <div className="absolute bottom-3 inset-x-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex gap-2">
+        {/* Quick View Button on Hover */}
+        <div className="absolute bottom-3 inset-x-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
           <button
-            onClick={() => onQuickView(product)}
-            className="flex-1 bg-white/95 text-brand-wine text-xs font-semibold py-2.5 rounded-xl text-center shadow-md hover:bg-white flex items-center justify-center gap-1.5"
+            onClick={() => { playChime('click'); onQuickView(product); }}
+            className="w-full py-2.5 rounded-xl glass-editorial text-atelier-pearl font-syne text-xs uppercase tracking-widest font-semibold hover:border-atelier-gold transition-colors flex items-center justify-center gap-1.5"
           >
-            <Eye className="w-3.5 h-3.5" />
-            <span>Quick View</span>
+            <Eye className="w-3.5 h-3.5 text-atelier-gold" />
+            <span>Examine Piece</span>
           </button>
         </div>
       </div>
 
-      {/* Info Content */}
-      <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between">
+      {/* Info Container */}
+      <div className="p-5 flex-1 flex flex-col justify-between space-y-4">
         <div>
-          <span className="text-[11px] font-semibold text-brand-gold uppercase tracking-wider">
-            {product.category}
-          </span>
-          <h3 className="font-serif text-lg font-bold text-brand-wine mt-1 group-hover:text-brand-deepRose transition-colors line-clamp-1">
+          <div className="flex items-center justify-between">
+            <span className="font-syne text-[9px] uppercase tracking-[0.25em] text-atelier-gold font-bold">
+              {product.category}
+            </span>
+            <div className="flex items-center text-[10px] text-amber-400 font-syne">
+              ★ {product.rating}
+            </div>
+          </div>
+
+          <h3 className="font-italiana text-2xl text-atelier-pearl mt-1 group-hover:text-atelier-rose transition-colors line-clamp-1">
             {product.title}
           </h3>
-          <p className="text-xs text-stone-500 mt-1 line-clamp-1">{product.subtitle}</p>
+          <p className="text-xs text-atelier-sand/70 font-sans font-light mt-1 line-clamp-1">
+            {product.subtitle}
+          </p>
         </div>
 
-        {/* Bottom Price & Add CTA */}
-        <div className="mt-4 pt-3 border-t border-stone-100 flex items-center justify-between">
+        {/* Price & Action */}
+        <div className="pt-3 border-t border-white/10 flex items-center justify-between">
           <div>
-            <span className="text-base font-bold text-brand-wine">
+            <span className="font-syne text-base font-bold text-atelier-pearl">
               ₹{product.price.toLocaleString('en-IN')}
             </span>
             {product.originalPrice && (
-              <span className="text-xs text-stone-400 line-through ml-1.5">
+              <span className="text-xs text-atelier-sand/40 line-through ml-2 font-syne">
                 ₹{product.originalPrice.toLocaleString('en-IN')}
               </span>
             )}
           </div>
+
           <button
-            onClick={() => addToCart(product)}
-            className="bg-brand-blush hover:bg-brand-rose hover:text-white text-brand-wine text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1 shadow-sm"
+            onClick={handleAdd}
+            className="bg-white/5 hover:bg-atelier-rose text-atelier-pearl hover:text-white border border-white/10 hover:border-atelier-rose px-3.5 py-1.5 rounded-lg text-xs font-syne uppercase tracking-wider transition-all duration-300 flex items-center gap-1 shadow-sm"
           >
             <Plus className="w-3.5 h-3.5" />
-            <span>Add</span>
+            <span>Bag</span>
           </button>
         </div>
+
       </div>
+
     </div>
   );
 }

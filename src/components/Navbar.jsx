@@ -1,125 +1,126 @@
 import React, { useState } from 'react';
-import { ShoppingBag, Heart, Search, Menu, X, Sparkles } from 'lucide-react';
+import { ShoppingBag, Heart, Search, Menu, X, ArrowUpRight } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { useWishlist } from '../context/WishlistContext';
+import { playChime } from '../utils/sound';
 
 export default function Navbar({ onOpenSearch, onOpenWishlist }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { totalItems, setIsCartOpen } = useCart();
   const { wishlistCount } = useWishlist();
 
+  const handleCartOpen = () => {
+    playChime('unboxing');
+    setIsCartOpen(true);
+  };
+
   return (
-    <header className="sticky top-0 z-40 transition-all duration-300 glass-nav border-b border-brand-rose/10">
+    <header className="sticky top-0 z-40 transition-all duration-300 glass-editorial border-b border-white/5">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
+        <div className="flex items-center justify-between h-20 sm:h-24">
           
-          {/* Mobile Menu Button */}
+          {/* Mobile Menu Trigger */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="lg:hidden p-2 text-brand-wine hover:text-brand-rose focus:outline-none"
+            className="lg:hidden p-2 text-atelier-pearl hover:text-atelier-rose transition-colors"
             aria-label="Toggle Navigation"
           >
             {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
 
-          {/* Logo */}
-          <div className="flex items-center gap-3">
-            <a href="#" className="group flex items-center gap-2.5">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-brand-wine to-brand-rose flex items-center justify-center shadow-md group-hover:scale-105 transition-transform duration-300">
-                <Sparkles className="w-5 h-5 text-brand-goldLight" />
-              </div>
-              <div className="flex flex-col">
-                <span className="font-display text-2xl sm:text-3xl font-bold tracking-tight text-brand-wine leading-none">
-                  Bold Petals
+          {/* Left Navigation Links (Editorial Minimal) */}
+          <nav className="hidden lg:flex items-center space-x-8 text-xs font-syne tracking-widest uppercase text-atelier-sand/80">
+            <a href="#curated-edit" className="hover:text-atelier-rose transition-colors flex items-center gap-1 group">
+              <span>The Catalog</span>
+              <span className="text-[9px] text-atelier-gold opacity-60 group-hover:opacity-100">08</span>
+            </a>
+            <a href="#unboxing-lab" className="hover:text-atelier-rose transition-colors flex items-center gap-1 text-atelier-rose">
+              <span>Custom Studio</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-atelier-rose"></span>
+            </a>
+            <a href="#philosophy" className="hover:text-atelier-rose transition-colors">
+              Philosophy
+            </a>
+            <a href="#reviews" className="hover:text-atelier-rose transition-colors">
+              Unboxings
+            </a>
+          </nav>
+
+          {/* Central Logo Identity (High-Fashion Typography) */}
+          <div className="flex items-center text-center">
+            <a href="#" className="group flex flex-col items-center">
+              <span className="font-italiana text-3xl sm:text-4xl lg:text-5xl tracking-[0.08em] text-atelier-pearl group-hover:text-atelier-rose transition-colors duration-500 font-normal">
+                BOLD PETALS
+              </span>
+              <div className="flex items-center gap-2 mt-0.5">
+                <span className="h-[1px] w-4 bg-atelier-gold/40"></span>
+                <span className="font-syne text-[9px] uppercase tracking-[0.35em] text-atelier-gold">
+                  HAUTE GIFT ATELIER
                 </span>
-                <span className="font-sans text-[10px] uppercase tracking-[0.22em] text-brand-gold font-semibold mt-1">
-                  Curated Gift Atelier
-                </span>
+                <span className="h-[1px] w-4 bg-atelier-gold/40"></span>
               </div>
             </a>
           </div>
 
-          {/* Desktop Navigation Links */}
-          <nav className="hidden lg:flex items-center space-x-8 text-sm font-medium text-stone-700">
-            <a href="#hampers" className="hover:text-brand-deepRose transition-colors">Gift Hampers</a>
-            <a href="#jewellery" className="hover:text-brand-deepRose transition-colors">Royal Jewellery</a>
-            <a href="#accessories" className="hover:text-brand-deepRose transition-colors">Hair & Clips</a>
-            <a href="#budget" className="hover:text-brand-deepRose transition-colors">Under ₹999</a>
-            <a href="#build-box" className="text-brand-deepRose font-semibold hover:text-brand-wine flex items-center gap-1.5">
-              <span>Make Your Own Box</span>
-              <span className="text-[10px] bg-brand-blush text-brand-deepRose px-2 py-0.5 rounded-full border border-brand-rose/30">
-                Custom
-              </span>
-            </a>
-            <a href="#reviews" className="hover:text-brand-deepRose transition-colors">Real Reviews</a>
-          </nav>
-
-          {/* Action Icons */}
+          {/* Right Action Icons & Bag Pill */}
           <div className="flex items-center space-x-3 sm:space-x-5">
             <button
-              onClick={onOpenSearch}
-              className="p-2 text-stone-600 hover:text-brand-wine transition-colors"
-              title="Search catalog"
+              onClick={() => { playChime('click'); onOpenSearch(); }}
+              className="p-2 text-atelier-pearl hover:text-atelier-rose transition-colors"
+              title="Search Catalog"
             >
-              <Search className="w-5 h-5" />
+              <Search className="w-4 h-4 sm:w-5 sm:h-5" />
             </button>
 
             <button
-              onClick={onOpenWishlist}
-              className="p-2 text-stone-600 hover:text-brand-wine relative transition-colors"
-              title="Wishlist"
+              onClick={() => { playChime('click'); onOpenWishlist(); }}
+              className="p-2 text-atelier-pearl hover:text-atelier-rose relative transition-colors"
+              title="Saved Keepsakes"
             >
-              <Heart className="w-5 h-5" />
+              <Heart className="w-4 h-4 sm:w-5 sm:h-5" />
               {wishlistCount > 0 && (
-                <span className="absolute -top-1 -right-1 w-4 h-4 bg-brand-rose text-white text-[10px] font-bold rounded-full flex items-center justify-center">
+                <span className="absolute -top-1 -right-1 w-4 h-4 bg-atelier-rose text-white text-[9px] font-syne font-bold rounded-full flex items-center justify-center">
                   {wishlistCount}
                 </span>
               )}
             </button>
 
+            {/* Awwwards Style Magnetic Bag Pill */}
             <button
-              onClick={() => setIsCartOpen(true)}
-              className="flex items-center gap-2 bg-brand-wine hover:bg-brand-deepRose text-white px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all duration-300 shadow-sm hover:shadow-glow"
+              onClick={handleCartOpen}
+              className="flex items-center gap-2 bg-gradient-to-r from-atelier-wine to-atelier-crimson hover:from-atelier-crimson hover:to-atelier-rose text-atelier-pearl px-4 py-2 sm:px-5 sm:py-2.5 rounded-full text-xs font-syne tracking-wider uppercase transition-all duration-300 border border-atelier-rose/30 shadow-glow-rose hover:scale-[1.03]"
             >
-              <ShoppingBag className="w-4 h-4" />
+              <ShoppingBag className="w-3.5 h-3.5 text-atelier-gold" />
               <span className="hidden sm:inline">Bag</span>
-              <span className="bg-brand-gold text-brand-wine text-xs px-1.5 py-0.2 rounded-full font-bold">
+              <span className="bg-atelier-pearl text-atelier-obsidian text-[10px] font-bold px-1.5 py-0.2 rounded-full">
                 {totalItems}
               </span>
             </button>
           </div>
+
         </div>
       </div>
 
-      {/* Mobile Nav Slide Down */}
+      {/* Mobile Drawer */}
       {isMobileMenuOpen && (
-        <div className="lg:hidden bg-brand-cream/98 backdrop-blur-xl border-t border-brand-rose/15 px-6 py-5">
-          <div className="flex flex-col space-y-4 text-base font-medium text-brand-dark">
-            <a href="#hampers" onClick={() => setIsMobileMenuOpen(false)} className="py-1 hover:text-brand-deepRose">
-              Gift Hampers & Combos
+        <div className="lg:hidden bg-atelier-obsidian/95 backdrop-blur-2xl border-t border-white/10 px-6 py-6 font-syne tracking-widest text-xs uppercase space-y-4">
+          <a href="#curated-edit" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 text-atelier-pearl hover:text-atelier-rose">
+            01 / The Catalog Archive
+          </a>
+          <a href="#unboxing-lab" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 text-atelier-rose font-bold">
+            02 / Custom Hamper Studio
+          </a>
+          <a href="#philosophy" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 text-atelier-pearl hover:text-atelier-rose">
+            03 / Atelier Philosophy
+          </a>
+          <a href="#reviews" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 text-atelier-pearl hover:text-atelier-rose">
+            04 / 50k+ Unboxing Proof
+          </a>
+          <div className="pt-4 border-t border-white/10 text-[10px] text-atelier-sand/60 flex justify-between items-center">
+            <span>Direct Lucknow Studio Concierge</span>
+            <a href="https://wa.me/919999999999" target="_blank" rel="noreferrer" className="text-atelier-rose font-bold">
+              WhatsApp Support →
             </a>
-            <a href="#jewellery" onClick={() => setIsMobileMenuOpen(false)} className="py-1 hover:text-brand-deepRose">
-              Royal Jhumka & Jewellery Boxes
-            </a>
-            <a href="#accessories" onClick={() => setIsMobileMenuOpen(false)} className="py-1 hover:text-brand-deepRose">
-              Hair Accessories & Scrunchies
-            </a>
-            <a href="#budget" onClick={() => setIsMobileMenuOpen(false)} className="py-1 hover:text-brand-deepRose">
-              Budget Gifts Under ₹999
-            </a>
-            <a href="#build-box" onClick={() => setIsMobileMenuOpen(false)} className="py-1 text-brand-wine font-semibold flex items-center justify-between">
-              <span>Make Your Own Hamper</span>
-              <span className="text-xs bg-brand-blush px-2 py-0.5 rounded text-brand-deepRose">Customize</span>
-            </a>
-            <a href="#reviews" onClick={() => setIsMobileMenuOpen(false)} className="py-1 hover:text-brand-deepRose">
-              Customer Stories (50k+)
-            </a>
-            <div className="pt-3 border-t border-brand-rose/20 text-xs text-stone-500 flex justify-between items-center">
-              <span>Studio: Lucknow Atelier</span>
-              <a href="https://wa.me/919999999999" target="_blank" rel="noreferrer" className="text-brand-deepRose font-semibold">
-                WhatsApp Us
-              </a>
-            </div>
           </div>
         </div>
       )}

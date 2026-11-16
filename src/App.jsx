@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import AnnouncementBar from './components/AnnouncementBar';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
+import MarqueeTicker from './components/MarqueeTicker';
 import CategoryScroller from './components/CategoryScroller';
 import ProductGrid from './components/ProductGrid';
 import HamperBuilder from './components/HamperBuilder';
-import TrustBadges from './components/TrustBadges';
+import Philosophy from './components/Philosophy';
 import Testimonials from './components/Testimonials';
 import InstagramGrid from './components/InstagramGrid';
 import Footer from './components/Footer';
@@ -24,19 +25,19 @@ export default function App() {
   const { wishlistCount } = useWishlist();
 
   const handleOpenWishlist = () => {
-    showToast(`You have ${wishlistCount} saved keepsakes in Wishlist!`);
+    showToast(`${wishlistCount} Keepsakes Vaulted in Wishlist`);
   };
 
   const handleSelectCategory = (categoryId) => {
     setActiveCategory(categoryId);
-    const element = document.getElementById('hampers');
+    const element = document.getElementById('curated-edit');
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#FDF9F6] text-[#1C1917] font-sans">
+    <div className="min-h-screen flex flex-col bg-atelier-void text-atelier-pearl font-sans selection:bg-atelier-rose selection:text-white antialiased">
       <AnnouncementBar />
       <Navbar
         onOpenSearch={() => setIsSearchOpen(true)}
@@ -45,14 +46,23 @@ export default function App() {
       
       <main className="flex-1">
         <Hero />
+        <MarqueeTicker />
         <CategoryScroller onSelectCategory={handleSelectCategory} />
         <ProductGrid
           activeCategory={activeCategory}
           setActiveCategory={setActiveCategory}
           onQuickView={(product) => setQuickViewProduct(product)}
         />
+        <MarqueeTicker reverse={true} textList={[
+          "LUCKNOW BESPOKE ATELIER",
+          "UNBOXING VIDEO REQUIRED FOR REPLACEMENTS",
+          "AUTHENTIC KOREAN AESTHETIC",
+          "HANDMADE LUXURY CHESTS",
+          "HAUTE PERFUMERY & JEWELS",
+          "DIRECT DISPATCH FROM UTTAR PRADESH"
+        ]} />
         <HamperBuilder />
-        <TrustBadges />
+        <Philosophy />
         <Testimonials />
         <InstagramGrid />
       </main>

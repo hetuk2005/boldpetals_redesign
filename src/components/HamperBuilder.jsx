@@ -1,26 +1,29 @@
 import React, { useState } from 'react';
-import { Check, Sparkles } from 'lucide-react';
+import { Sparkles, Check, Gift, Feather, ShieldCheck } from 'lucide-react';
 import { useCart } from '../context/CartContext';
+import { playChime } from '../utils/sound';
 
 export default function HamperBuilder() {
   const { addToCart } = useCart();
 
   const [boxOption, setBoxOption] = useState({
-    name: 'Blush Satin Heart Box',
-    price: 350,
-    desc: 'Ribbon Tied Keepsake'
+    name: 'Royal Crimson Velvet Trunk',
+    price: 450,
+    accent: 'bg-[#3D0E20]',
+    desc: 'Heavyweight velvet with gold hardware & silk lining'
   });
 
   const [selectedItems, setSelectedItems] = useState([
-    { id: 'jhumka', name: 'Light Wala Jhumka', price: 899, selected: true },
-    { id: 'perfume', name: 'Bellavita Date Perfume', price: 220, selected: false },
-    { id: 'sipper', name: 'Aesthetic Sipper Bottle', price: 299, selected: false },
-    { id: 'claws', name: 'Butterfly Hair Claws', price: 59, selected: false }
+    { id: 'jhumka', name: 'Light Wala Jhumka', price: 899, selected: true, icon: '✨' },
+    { id: 'perfume', name: 'Bellavita Date Perfume (20ml)', price: 220, selected: false, icon: '🌹' },
+    { id: 'sipper', name: 'Aesthetic Glass Sipper Tumbler', price: 299, selected: false, icon: '🫧' },
+    { id: 'claws', name: '2 Metal Butterfly Hair Claws', price: 59, selected: false, icon: '🦋' }
   ]);
 
-  const [cardMessage, setCardMessage] = useState('');
+  const [cardMessage, setCardMessage] = useState('To the sweetest soul, wishing you endless magic on your special day.');
 
   const toggleItem = (id) => {
+    playChime('click');
     setSelectedItems((prev) =>
       prev.map((item) =>
         item.id === id ? { ...item, selected: !item.selected } : item
@@ -34,173 +37,214 @@ export default function HamperBuilder() {
 
   const grandTotal = boxOption.price + itemsTotal;
 
-  const handleAddHamperToBag = () => {
+  const handleCreateHamper = () => {
+    playChime('unboxing');
     const customProduct = {
       id: `custom-hamper-${Date.now()}`,
-      title: `Personalized Hamper (${boxOption.name})`,
+      title: `Bespoke Hamper (${boxOption.name})`,
       price: grandTotal,
-      image: 'https://images.unsplash.com/photo-1513885535751-8b9238bd345a?auto=format&fit=crop&w=300&q=80'
+      image: 'https://images.unsplash.com/photo-1513885535751-8b9238bd345a?auto=format&fit=crop&w=400&q=80'
     };
     addToCart(customProduct);
   };
 
   return (
-    <section id="build-box" className="py-16 sm:py-20 bg-brand-wine text-white relative overflow-hidden">
-      <div className="absolute -right-20 -bottom-20 w-96 h-96 rounded-full bg-brand-deepRose blur-3xl opacity-50 pointer-events-none"></div>
-      <div className="absolute -left-20 -top-20 w-96 h-96 rounded-full bg-brand-rose blur-3xl opacity-20 pointer-events-none"></div>
+    <section id="unboxing-lab" className="py-24 sm:py-32 bg-atelier-void relative overflow-hidden border-t border-white/10">
+      
+      {/* Background Ambience */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-atelier-wine/20 rounded-full blur-[180px] pointer-events-none"></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+        
+        {/* Section Headline */}
+        <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
+          <span className="font-syne text-[10px] uppercase tracking-[0.4em] text-atelier-gold font-bold">
+            The Haute Atelier Lab
+          </span>
+          <h2 className="font-italiana text-4xl sm:text-6xl text-atelier-pearl">
+            Curate Your Own Unboxing Rite
+          </h2>
+          <p className="text-atelier-sand/70 text-sm font-sans font-light">
+            Every bespoke box is assembled by hand in our Lucknow atelier, laced with satin ribbons, preserved petals, and your handwritten calligraphed letter.
+          </p>
+        </div>
+
+        {/* 2-Column Lab Experience */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
           
-          {/* Left Explainer */}
-          <div className="lg:col-span-5 space-y-6">
-            <span className="inline-block text-xs uppercase tracking-widest font-bold text-brand-goldLight">
-              Customization Studio
-            </span>
-            <h2 className="font-serif text-3xl sm:text-5xl font-bold leading-tight">
-              Craft a Gift That Feels Like <span className="text-brand-rose italic">Pure Poetry.</span>
-            </h2>
-            <p className="text-stone-300 text-sm sm:text-base leading-relaxed">
-              Never settle for off-the-shelf. In three quick steps, handpick every jewel, fragrance, chocolate, and handwritten card. We wrap it in velvet ribbon and seal it with love in Lucknow.
-            </p>
-
-            {/* 3 Steps */}
-            <div className="space-y-4 pt-2">
-              <div className="flex items-start gap-3">
-                <span className="w-7 h-7 rounded-full bg-brand-gold text-brand-wine font-bold text-xs flex items-center justify-center flex-shrink-0 mt-0.5">
-                  1
+          {/* Left Column: Interactive Box Customizer Controls */}
+          <div className="lg:col-span-7 space-y-8 glass-card p-6 sm:p-10 rounded-3xl border border-white/10">
+            
+            {/* Step 1: Box Style */}
+            <div className="space-y-3">
+              <div className="flex items-center justify-between">
+                <span className="font-syne text-xs uppercase tracking-widest text-atelier-gold font-bold">
+                  01 / Select Your Keepsake Chest
                 </span>
-                <div>
-                  <h4 className="text-sm font-bold text-white">Choose Your Aesthetic Box</h4>
-                  <p className="text-xs text-stone-300">Blush Pink, Royal Velvet Trunk, or Vintage Pine Keepsake</p>
-                </div>
+                <span className="font-syne text-xs text-atelier-sand/60">Stage 1 of 3</span>
               </div>
 
-              <div className="flex items-start gap-3">
-                <span className="w-7 h-7 rounded-full bg-brand-gold text-brand-wine font-bold text-xs flex items-center justify-center flex-shrink-0 mt-0.5">
-                  2
-                </span>
-                <div>
-                  <h4 className="text-sm font-bold text-white">Fill with Treats & Jewels</h4>
-                  <p className="text-xs text-stone-300">Mix jhumkas, butterfly claws, chocolates & Bellavita perfumes</p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-3">
-                <span className="w-7 h-7 rounded-full bg-brand-gold text-brand-wine font-bold text-xs flex items-center justify-center flex-shrink-0 mt-0.5">
-                  3
-                </span>
-                <div>
-                  <h4 className="text-sm font-bold text-white">Add Your Message & Polaroids</h4>
-                  <p className="text-xs text-stone-300">Free calligraphy note card with each custom hamper</p>
-                </div>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                {[
+                  { name: 'Royal Crimson Velvet Trunk', price: 450, desc: 'Velvet trunk with brass clasp' },
+                  { name: 'Blush Satin Heart Box', price: 350, desc: 'Ribbon-tied romantic heart' },
+                  { name: 'Vintage Botanical Pine', price: 250, desc: 'Raw pine wood keepsake' }
+                ].map((b, idx) => (
+                  <button
+                    key={idx}
+                    type="button"
+                    onClick={() => { playChime('click'); setBoxOption(b); }}
+                    className={`text-left p-4 rounded-2xl transition-all duration-300 flex flex-col justify-between ${
+                      boxOption.name === b.name
+                        ? 'border-2 border-atelier-rose bg-atelier-wine/50 shadow-glow-rose'
+                        : 'border border-white/10 bg-white/5 hover:border-white/20'
+                    }`}
+                  >
+                    <div>
+                      <div className="font-italiana text-lg text-atelier-pearl">{b.name}</div>
+                      <div className="text-[11px] text-atelier-sand/60 mt-1 font-sans">{b.desc}</div>
+                    </div>
+                    <div className="font-syne text-xs font-bold text-atelier-gold mt-4">
+                      ₹{b.price}
+                    </div>
+                  </button>
+                ))}
               </div>
             </div>
+
+            {/* Step 2: Add-in Delights */}
+            <div className="space-y-3">
+              <span className="font-syne text-xs uppercase tracking-widest text-atelier-gold font-bold">
+                02 / Handpick Delights & Jewels
+              </span>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {selectedItems.map((item) => (
+                  <label
+                    key={item.id}
+                    className={`flex items-center gap-3 p-3.5 rounded-xl border transition-all cursor-pointer ${
+                      item.selected
+                        ? 'border-atelier-rose/80 bg-atelier-wine/40 text-atelier-pearl'
+                        : 'border-white/10 bg-white/5 text-atelier-sand/70 hover:border-white/20'
+                    }`}
+                  >
+                    <input
+                      type="checkbox"
+                      checked={item.selected}
+                      onChange={() => toggleItem(item.id)}
+                      className="accent-atelier-rose w-4 h-4 rounded"
+                    />
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2">
+                        <span>{item.icon}</span>
+                        <span className="font-syne text-xs font-semibold truncate">{item.name}</span>
+                      </div>
+                      <span className="text-[11px] text-atelier-gold font-syne font-bold">+₹{item.price}</span>
+                    </div>
+                  </label>
+                ))}
+              </div>
+            </div>
+
+            {/* Step 3: Real-Time Calligraphy Letter */}
+            <div className="space-y-3">
+              <div className="flex items-center gap-2">
+                <Feather className="w-3.5 h-3.5 text-atelier-gold" />
+                <span className="font-syne text-xs uppercase tracking-widest text-atelier-gold font-bold">
+                  03 / Free Calligraphy Note Inside Box
+                </span>
+              </div>
+              
+              <textarea
+                rows={2}
+                value={cardMessage}
+                onChange={(e) => setCardMessage(e.target.value)}
+                placeholder="Write your custom heartfelt note..."
+                className="w-full bg-black/40 border border-white/15 rounded-xl p-3 text-xs text-atelier-pearl font-serif italic focus:outline-none focus:border-atelier-rose tracking-wide resize-none"
+              ></textarea>
+            </div>
+
           </div>
 
-          {/* Right Interactive Hamper Builder Widget */}
-          <div className="lg:col-span-7 bg-white text-brand-dark p-6 sm:p-8 rounded-3xl shadow-2xl border border-white/20">
-            <div className="flex items-center justify-between border-b border-stone-200 pb-4 mb-6">
-              <div>
-                <h3 className="font-serif text-xl font-bold text-brand-wine">
-                  Interactive Hamper Builder
-                </h3>
-                <p className="text-xs text-stone-500">Pick items to see live preview & estimate</p>
-              </div>
-              <div className="text-right">
-                <span className="text-xs text-stone-400">Total Estimate:</span>
-                <div className="text-xl font-bold text-brand-wine">
-                  ₹{grandTotal.toLocaleString('en-IN')}
-                </div>
-              </div>
-            </div>
-
-            <div className="space-y-5">
+          {/* Right Column: Live Visual Unboxing Stage Preview */}
+          <div className="lg:col-span-5 space-y-6">
+            
+            <div className="glass-card p-8 rounded-3xl border border-white/10 relative overflow-hidden space-y-6">
               
-              {/* Step 1: Base Box */}
-              <div>
-                <label className="block text-xs font-bold text-stone-700 uppercase tracking-wider mb-2">
-                  Step 1: Choose Box Style
-                </label>
-                <div className="grid grid-cols-3 gap-2.5">
-                  {[
-                    { name: 'Blush Satin Heart Box', price: 350, desc: 'Ribbon Tied' },
-                    { name: 'Luxe Gold Velvet Trunk', price: 450, desc: 'Reusable' },
-                    { name: 'Vintage Craft Floral', price: 250, desc: 'Eco Chic' }
-                  ].map((box, i) => (
-                    <button
-                      key={i}
-                      type="button"
-                      onClick={() => setBoxOption(box)}
-                      className={`text-left p-2.5 rounded-xl transition-all text-xs ${
-                        boxOption.name === box.name
-                          ? 'border-2 border-brand-wine bg-brand-blush/40 font-bold text-brand-wine'
-                          : 'border border-stone-200 hover:border-brand-rose'
-                      }`}
-                    >
-                      <div className="font-bold">{box.name}</div>
-                      <div className="text-[10px] text-stone-500">₹{box.price} • {box.desc}</div>
-                    </button>
-                  ))}
+              {/* Box Stage Visual */}
+              <div className="relative aspect-video rounded-2xl overflow-hidden bg-gradient-to-tr from-atelier-wine via-atelier-obsidian to-black p-6 flex flex-col justify-between border border-white/10 shadow-dramatic">
+                <div className="flex items-center justify-between">
+                  <span className="font-syne text-[10px] uppercase tracking-widest text-atelier-gold font-bold">
+                    [ ATELIER MOCKUP: STAGE 01 ]
+                  </span>
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                </div>
+
+                <div className="text-center space-y-1">
+                  <div className="font-italiana text-2xl text-atelier-pearl">
+                    {boxOption.name}
+                  </div>
+                  <div className="text-xs text-atelier-sand/70 font-sans">
+                    {selectedItems.filter((i) => i.selected).length} Delights Selected
+                  </div>
+                </div>
+
+                {/* Selected item chips inside preview */}
+                <div className="flex flex-wrap items-center justify-center gap-1.5 pt-2">
+                  {selectedItems
+                    .filter((i) => i.selected)
+                    .map((item) => (
+                      <span
+                        key={item.id}
+                        className="bg-white/10 backdrop-blur-md px-2 py-0.5 rounded-full text-[10px] font-syne text-atelier-pearl border border-white/15"
+                      >
+                        {item.icon} {item.name.split(' ')[0]}
+                      </span>
+                    ))}
                 </div>
               </div>
 
-              {/* Step 2: Add-in Delights */}
-              <div>
-                <label className="block text-xs font-bold text-stone-700 uppercase tracking-wider mb-2">
-                  Step 2: Add Delights & Jewels
-                </label>
-                <div className="grid grid-cols-2 gap-2 text-xs">
-                  {selectedItems.map((item) => (
-                    <label
-                      key={item.id}
-                      className={`flex items-center gap-2.5 p-2 rounded-lg border cursor-pointer transition-colors ${
-                        item.selected ? 'bg-brand-blush/30 border-brand-rose' : 'border-stone-200 hover:bg-stone-50'
-                      }`}
-                    >
-                      <input
-                        type="checkbox"
-                        checked={item.selected}
-                        onChange={() => toggleItem(item.id)}
-                        className="accent-brand-wine w-4 h-4 rounded"
-                      />
-                      <div className="flex-1">
-                        <div className="font-medium text-stone-800">{item.name}</div>
-                        <div className="text-[10px] text-stone-500">+₹{item.price}</div>
-                      </div>
-                    </label>
-                  ))}
+              {/* Calligraphy Card Live Rendering */}
+              <div className="bg-[#F8F2E8] text-[#241712] p-6 rounded-xl shadow-lg border border-[#E0D4C3] space-y-2 transform -rotate-1 relative">
+                <div className="font-syne text-[8px] uppercase tracking-[0.25em] text-[#8C6D58] border-b border-[#E0D4C3] pb-1">
+                  Hand-Calligraphed Parchment Note
+                </div>
+                <p className="font-serif italic text-sm leading-relaxed min-h-[50px]">
+                  "{cardMessage || 'Your message will appear here in ink...'}"
+                </p>
+                <div className="text-right font-serif text-[11px] text-[#8C6D58]">
+                  — Sealed with Red Wax in Lucknow
                 </div>
               </div>
 
-              {/* Step 3: Greeting Note */}
-              <div>
-                <label className="block text-xs font-bold text-stone-700 uppercase tracking-wider mb-1">
-                  Step 3: Free Handwritten Card Message
-                </label>
-                <input
-                  type="text"
-                  value={cardMessage}
-                  onChange={(e) => setCardMessage(e.target.value)}
-                  placeholder="e.g. 'Happy Birthday sunshine! Love always, Aanya'"
-                  className="w-full text-xs px-3.5 py-2.5 rounded-xl border border-stone-200 focus:outline-none focus:border-brand-wine"
-                />
-              </div>
+              {/* Price Calculation & Checkout Trigger */}
+              <div className="pt-4 border-t border-white/10 flex items-center justify-between">
+                <div>
+                  <div className="font-syne text-[10px] uppercase tracking-widest text-atelier-sand/60">
+                    Bespoke Estimate
+                  </div>
+                  <div className="font-syne text-2xl font-bold text-atelier-pearl">
+                    ₹{grandTotal.toLocaleString('en-IN')}
+                  </div>
+                </div>
 
-              {/* Action Button */}
-              <button
-                onClick={handleAddHamperToBag}
-                className="w-full bg-brand-wine hover:bg-brand-deepRose text-white font-semibold py-3.5 rounded-xl text-xs sm:text-sm tracking-wide transition-all shadow-md flex items-center justify-center gap-2"
-              >
-                <Check className="w-4 h-4 text-brand-gold" />
-                <span>Confirm & Add Custom Hamper to Bag</span>
-              </button>
+                <button
+                  onClick={handleCreateHamper}
+                  className="bg-gradient-to-r from-atelier-rose to-atelier-crimson hover:from-atelier-crimson hover:to-atelier-rose text-white font-syne text-xs uppercase tracking-widest font-bold px-6 py-3.5 rounded-full shadow-glow-rose transition-all flex items-center gap-2 hover:scale-[1.02]"
+                >
+                  <Check className="w-4 h-4 text-atelier-gold" />
+                  <span>Encase in Bag</span>
+                </button>
+              </div>
 
             </div>
+
           </div>
 
         </div>
+
       </div>
+
     </section>
   );
 }
