@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ShoppingBag, Heart, Search, Menu, X, Sparkles, Truck, Gift } from 'lucide-react';
+import { ShoppingBag, Heart, Search, Menu, X, Sparkles, Gift } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { useWishlist } from '../context/WishlistContext';
 
@@ -63,20 +63,9 @@ export default function Navbar({ onOpenSearch, onOpenWishlist }) {
             </div>
           </div>
 
-          {/* Right: Quick Actions (Track Order, Wishlist, Bag) */}
-          <div className="flex items-center space-x-2 sm:space-x-4">
+          {/* Right: Quick Actions (Wishlist, Bag) */}
+          <div className="flex items-center space-x-2 sm:space-x-3">
             
-            {/* Quick Track Order Link */}
-            <a
-              href="https://wa.me/919999999999?text=Hi%20Bold%20Petals!%20I%20want%20to%20track%20my%20order"
-              target="_blank"
-              rel="noreferrer"
-              className="hidden md:flex items-center gap-1.5 text-xs font-semibold text-theme-muted hover:text-theme-primary transition-colors py-1.5 px-3 rounded-full hover:bg-theme-light"
-            >
-              <Truck className="w-3.5 h-3.5" />
-              <span>Track Order</span>
-            </a>
-
             {/* Wishlist Button */}
             <button
               onClick={onOpenWishlist}
