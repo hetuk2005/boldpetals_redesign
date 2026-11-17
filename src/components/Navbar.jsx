@@ -1,98 +1,102 @@
 import React, { useState } from 'react';
-import { ShoppingBag, Heart, Search, Menu, X, ArrowUpRight } from 'lucide-react';
+import { ShoppingBag, Heart, Search, Menu, X, Sparkles } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { useWishlist } from '../context/WishlistContext';
-import { playChime } from '../utils/sound';
 
 export default function Navbar({ onOpenSearch, onOpenWishlist }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { totalItems, setIsCartOpen } = useCart();
   const { wishlistCount } = useWishlist();
 
-  const handleCartOpen = () => {
-    playChime('unboxing');
-    setIsCartOpen(true);
-  };
-
   return (
-    <header className="sticky top-0 z-40 transition-all duration-300 glass-editorial border-b border-white/5">
+    <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-theme-border transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20 sm:h-24">
+        <div className="flex items-center justify-between h-20">
           
-          {/* Mobile Menu Trigger */}
+          {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="lg:hidden p-2 text-atelier-pearl hover:text-atelier-rose transition-colors"
+            className="lg:hidden p-2 text-theme-dark hover:text-theme-primary transition-colors"
             aria-label="Toggle Navigation"
           >
             {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
 
-          {/* Left Navigation Links (Editorial Minimal) */}
-          <nav className="hidden lg:flex items-center space-x-8 text-xs font-syne tracking-widest uppercase text-atelier-sand/80">
-            <a href="#curated-edit" className="hover:text-atelier-rose transition-colors flex items-center gap-1 group">
-              <span>The Catalog</span>
-              <span className="text-[9px] text-atelier-gold opacity-60 group-hover:opacity-100">08</span>
-            </a>
-            <a href="#unboxing-lab" className="hover:text-atelier-rose transition-colors flex items-center gap-1 text-atelier-rose">
-              <span>Custom Studio</span>
-              <span className="w-1.5 h-1.5 rounded-full bg-atelier-rose"></span>
-            </a>
-            <a href="#philosophy" className="hover:text-atelier-rose transition-colors">
-              Philosophy
-            </a>
-            <a href="#reviews" className="hover:text-atelier-rose transition-colors">
-              Unboxings
-            </a>
-          </nav>
-
-          {/* Central Logo Identity (High-Fashion Typography) */}
-          <div className="flex items-center text-center">
-            <a href="#" className="group flex flex-col items-center">
-              <span className="font-italiana text-3xl sm:text-4xl lg:text-5xl tracking-[0.08em] text-atelier-pearl group-hover:text-atelier-rose transition-colors duration-500 font-normal">
-                BOLD PETALS
-              </span>
-              <div className="flex items-center gap-2 mt-0.5">
-                <span className="h-[1px] w-4 bg-atelier-gold/40"></span>
-                <span className="font-syne text-[9px] uppercase tracking-[0.35em] text-atelier-gold">
-                  HAUTE GIFT ATELIER
+          {/* Brand Logo (Inspired by Aesthetic Magic by Anu style) */}
+          <div className="flex items-center gap-3">
+            <a href="#" className="group flex items-center gap-2.5">
+              <div className="w-10 h-10 rounded-full bg-theme-tint text-theme-primary flex items-center justify-center font-serif text-lg font-bold shadow-sm group-hover:scale-105 transition-transform">
+                <Sparkles className="w-5 h-5 text-theme-primary" />
+              </div>
+              <div className="flex flex-col">
+                <span className="font-serif text-2xl sm:text-3xl font-bold tracking-tight text-theme-primary leading-none">
+                  Bold Petals
                 </span>
-                <span className="h-[1px] w-4 bg-atelier-gold/40"></span>
+                <span className="text-[10px] uppercase tracking-[0.2em] text-theme-muted font-semibold mt-1">
+                  Aesthetic Gifting Atelier
+                </span>
               </div>
             </a>
           </div>
 
-          {/* Right Action Icons & Bag Pill */}
-          <div className="flex items-center space-x-3 sm:space-x-5">
-            <button
-              onClick={() => { playChime('click'); onOpenSearch(); }}
-              className="p-2 text-atelier-pearl hover:text-atelier-rose transition-colors"
-              title="Search Catalog"
+          {/* Desktop Navigation Links */}
+          <nav className="hidden lg:flex items-center space-x-7 text-sm font-medium text-theme-dark">
+            <a href="#hampers" className="hover:text-theme-primary transition-colors">
+              Gift Hampers
+            </a>
+            <a href="#jewellery" className="hover:text-theme-primary transition-colors">
+              Jhumkas & Jewels
+            </a>
+            <a href="#accessories" className="hover:text-theme-primary transition-colors">
+              Hair Claws
+            </a>
+            <a href="#budget" className="hover:text-theme-primary transition-colors">
+              Under ₹999
+            </a>
+            <a
+              href="#build-box"
+              className="text-theme-primary font-bold hover:text-theme-primaryHover flex items-center gap-1.5"
             >
-              <Search className="w-4 h-4 sm:w-5 sm:h-5" />
+              <span>Make Your Own Box</span>
+              <span className="text-[10px] bg-theme-tint text-theme-primary px-2 py-0.5 rounded-full border border-theme-border font-bold">
+                Custom
+              </span>
+            </a>
+            <a href="#reviews" className="hover:text-theme-primary transition-colors">
+              Real Reviews
+            </a>
+          </nav>
+
+          {/* Right Action Icons */}
+          <div className="flex items-center space-x-3 sm:space-x-4">
+            <button
+              onClick={onOpenSearch}
+              className="p-2 text-theme-muted hover:text-theme-primary transition-colors rounded-full hover:bg-theme-light"
+              title="Search catalog"
+            >
+              <Search className="w-5 h-5" />
             </button>
 
             <button
-              onClick={() => { playChime('click'); onOpenWishlist(); }}
-              className="p-2 text-atelier-pearl hover:text-atelier-rose relative transition-colors"
-              title="Saved Keepsakes"
+              onClick={onOpenWishlist}
+              className="p-2 text-theme-muted hover:text-theme-primary relative transition-colors rounded-full hover:bg-theme-light"
+              title="Wishlist"
             >
-              <Heart className="w-4 h-4 sm:w-5 sm:h-5" />
+              <Heart className="w-5 h-5" />
               {wishlistCount > 0 && (
-                <span className="absolute -top-1 -right-1 w-4 h-4 bg-atelier-rose text-white text-[9px] font-syne font-bold rounded-full flex items-center justify-center">
+                <span className="absolute -top-1 -right-1 w-4 h-4 bg-theme-primary text-white text-[10px] font-bold rounded-full flex items-center justify-center">
                   {wishlistCount}
                 </span>
               )}
             </button>
 
-            {/* Awwwards Style Magnetic Bag Pill */}
             <button
-              onClick={handleCartOpen}
-              className="flex items-center gap-2 bg-gradient-to-r from-atelier-wine to-atelier-crimson hover:from-atelier-crimson hover:to-atelier-rose text-atelier-pearl px-4 py-2 sm:px-5 sm:py-2.5 rounded-full text-xs font-syne tracking-wider uppercase transition-all duration-300 border border-atelier-rose/30 shadow-glow-rose hover:scale-[1.03]"
+              onClick={() => setIsCartOpen(true)}
+              className="flex items-center gap-2 bg-theme-primary hover:bg-theme-primaryHover text-white px-4 py-2 sm:px-4 sm:py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all shadow-sm hover:shadow-md"
             >
-              <ShoppingBag className="w-3.5 h-3.5 text-atelier-gold" />
+              <ShoppingBag className="w-4 h-4" />
               <span className="hidden sm:inline">Bag</span>
-              <span className="bg-atelier-pearl text-atelier-obsidian text-[10px] font-bold px-1.5 py-0.2 rounded-full">
+              <span className="bg-white text-theme-primary text-xs px-1.5 py-0.2 rounded-full font-bold">
                 {totalItems}
               </span>
             </button>
@@ -103,25 +107,25 @@ export default function Navbar({ onOpenSearch, onOpenWishlist }) {
 
       {/* Mobile Drawer */}
       {isMobileMenuOpen && (
-        <div className="lg:hidden bg-atelier-obsidian/95 backdrop-blur-2xl border-t border-white/10 px-6 py-6 font-syne tracking-widest text-xs uppercase space-y-4">
-          <a href="#curated-edit" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 text-atelier-pearl hover:text-atelier-rose">
-            01 / The Catalog Archive
+        <div className="lg:hidden bg-white border-t border-theme-border px-6 py-5 space-y-3 text-sm font-medium text-theme-dark shadow-lg">
+          <a href="#hampers" onClick={() => setIsMobileMenuOpen(false)} className="block py-1 hover:text-theme-primary">
+            Curated Gift Hampers
           </a>
-          <a href="#unboxing-lab" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 text-atelier-rose font-bold">
-            02 / Custom Hamper Studio
+          <a href="#jewellery" onClick={() => setIsMobileMenuOpen(false)} className="block py-1 hover:text-theme-primary">
+            Light Wala Jhumkas & Jewellery
           </a>
-          <a href="#philosophy" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 text-atelier-pearl hover:text-atelier-rose">
-            03 / Atelier Philosophy
+          <a href="#accessories" onClick={() => setIsMobileMenuOpen(false)} className="block py-1 hover:text-theme-primary">
+            Hair Accessories & Butterfly Claws
           </a>
-          <a href="#reviews" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 text-atelier-pearl hover:text-atelier-rose">
-            04 / 50k+ Unboxing Proof
+          <a href="#budget" onClick={() => setIsMobileMenuOpen(false)} className="block py-1 hover:text-theme-primary">
+            Budget Gifts Under ₹999
           </a>
-          <div className="pt-4 border-t border-white/10 text-[10px] text-atelier-sand/60 flex justify-between items-center">
-            <span>Direct Lucknow Studio Concierge</span>
-            <a href="https://wa.me/919999999999" target="_blank" rel="noreferrer" className="text-atelier-rose font-bold">
-              WhatsApp Support →
-            </a>
-          </div>
+          <a href="#build-box" onClick={() => setIsMobileMenuOpen(false)} className="block py-1 text-theme-primary font-bold">
+            Make Your Own Box 🎁
+          </a>
+          <a href="#reviews" onClick={() => setIsMobileMenuOpen(false)} className="block py-1 hover:text-theme-primary">
+            Customer Unboxing Reviews (50k+)
+          </a>
         </div>
       )}
     </header>

@@ -1,87 +1,84 @@
 import React from 'react';
-import { X, Plus, ShieldCheck, Truck, Sparkles } from 'lucide-react';
+import { X, Plus, ShieldCheck, Truck } from 'lucide-react';
 import { useCart } from '../context/CartContext';
-import { playChime } from '../utils/sound';
 
 export default function QuickViewModal({ product, onClose }) {
   const { addToCart } = useCart();
   if (!product) return null;
 
   const handleAdd = () => {
-    playChime('unboxing');
     addToCart(product);
     onClose();
   };
 
   return (
-    <div className="fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-4">
-      <div className="glass-card bg-atelier-obsidian text-atelier-pearl rounded-3xl max-w-2xl w-full overflow-hidden shadow-dramatic relative border border-white/15 max-h-[90vh] flex flex-col md:flex-row">
+    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+      <div className="bg-white text-theme-dark rounded-3xl max-w-2xl w-full overflow-hidden shadow-2xl relative border border-theme-border max-h-[90vh] flex flex-col md:flex-row">
         
         {/* Close Button */}
         <button
-          onClick={() => { playChime('click'); onClose(); }}
-          className="absolute top-4 right-4 z-10 w-9 h-9 rounded-full glass-card text-atelier-sand hover:text-white flex items-center justify-center shadow"
+          onClick={onClose}
+          className="absolute top-4 right-4 z-10 w-8 h-8 rounded-full bg-white/90 backdrop-blur-sm text-theme-muted hover:text-theme-primary flex items-center justify-center shadow"
         >
           <X className="w-4 h-4" />
         </button>
 
         {/* Product Image Frame */}
-        <div className="md:w-1/2 aspect-square md:aspect-auto bg-atelier-velvet relative overflow-hidden">
+        <div className="md:w-1/2 aspect-square md:aspect-auto bg-stone-100 relative">
           <img
             src={product.image}
             alt={product.title}
-            className="w-full h-full object-cover filter brightness-95"
+            className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-atelier-obsidian/70 to-transparent"></div>
         </div>
 
-        {/* Info Column */}
-        <div className="md:w-1/2 p-6 sm:p-8 flex flex-col justify-between space-y-6">
+        {/* Details Column */}
+        <div className="md:w-1/2 p-6 sm:p-8 flex flex-col justify-between space-y-4">
           <div className="space-y-3">
-            <span className="font-syne text-[9px] uppercase tracking-[0.3em] text-atelier-gold font-bold">
+            <span className="text-[10px] uppercase font-bold tracking-wider text-theme-primary">
               {product.category}
             </span>
-            <h3 className="font-italiana text-3xl text-atelier-pearl leading-snug">
+            <h3 className="font-serif text-2xl font-bold text-theme-dark leading-snug">
               {product.title}
             </h3>
 
-            <div className="flex items-baseline gap-2 pt-1">
-              <span className="font-syne text-2xl font-bold text-atelier-pearl">
+            <div className="flex items-baseline gap-2">
+              <span className="text-xl font-bold text-theme-dark">
                 ₹{product.price.toLocaleString('en-IN')}
               </span>
               {product.originalPrice && (
-                <span className="text-xs text-atelier-sand/40 line-through font-syne">
+                <span className="text-xs text-stone-400 line-through">
                   ₹{product.originalPrice.toLocaleString('en-IN')}
                 </span>
               )}
-              <span className="text-[10px] font-syne uppercase tracking-wider bg-atelier-wine text-atelier-rose px-2 py-0.5 rounded border border-white/10 font-bold ml-2">
-                Atelier Handcrafted
+              <span className="text-[10px] bg-theme-tint text-theme-primary font-bold px-2 py-0.5 rounded">
+                Limited Offer
               </span>
             </div>
 
-            <p className="text-xs text-atelier-sand/80 font-sans font-light leading-relaxed pt-2 border-t border-white/10">
+            <p className="text-xs text-theme-muted leading-relaxed pt-2 border-t border-theme-border">
               {product.description}
             </p>
 
-            <div className="space-y-1.5 text-[11px] font-syne uppercase tracking-wider text-atelier-sand/60 pt-2">
-              <p className="flex items-center gap-2">
-                <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-                <span>100% Continuous Unboxing Protection</span>
+            <div className="space-y-1.5 text-[11px] text-theme-muted pt-2">
+              <p className="flex items-center gap-1.5">
+                <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
+                <span>100% Unboxing Video Safe Guarantee</span>
               </p>
-              <p className="flex items-center gap-2">
-                <Truck className="w-3.5 h-3.5 text-atelier-gold" />
-                <span>Dispatches from Lucknow (48-72 Hours)</span>
+              <p className="flex items-center gap-1.5">
+                <Truck className="w-3.5 h-3.5 text-theme-primary" />
+                <span>Express Dispatch from Lucknow (2-4 Days)</span>
               </p>
             </div>
           </div>
 
-          <div>
+          <div className="pt-4">
             <button
               onClick={handleAdd}
-              className="w-full bg-gradient-to-r from-atelier-rose to-atelier-crimson hover:from-atelier-crimson hover:to-atelier-rose text-white font-syne text-xs uppercase tracking-widest font-bold py-4 rounded-full shadow-glow-rose transition-all flex items-center justify-center gap-2"
+              className="w-full bg-theme-primary hover:bg-theme-primaryHover text-white font-bold py-3 rounded-xl text-xs sm:text-sm transition-all shadow-md flex items-center justify-center gap-2"
             >
               <Plus className="w-4 h-4" />
-              <span>Acquire & Encase in Bag</span>
+              <span>Add to Gift Bag</span>
             </button>
           </div>
         </div>

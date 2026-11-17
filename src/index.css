@@ -2,6 +2,32 @@
 @tailwind components;
 @tailwind utilities;
 
+:root, [data-theme="maroon"] {
+  --color-primary: #801D35;
+  --color-primary-hover: #631427;
+  --color-secondary: #C24D68;
+  --color-light: #FDF8F9;
+  --color-tint: #F7E5E9;
+  --color-accent: #C59837;
+  --color-dark: #201618;
+  --color-muted: #7A6B6E;
+  --color-surface: #FFFFFF;
+  --color-border: #F0DFE2;
+}
+
+[data-theme="sage"] {
+  --color-primary: #486B54;
+  --color-primary-hover: #35503E;
+  --color-secondary: #7A9E86;
+  --color-light: #F8FAF8;
+  --color-tint: #E5EDE7;
+  --color-accent: #C59837;
+  --color-dark: #19241C;
+  --color-muted: #667569;
+  --color-surface: #FFFFFF;
+  --color-border: #DFE8E1;
+}
+
 @layer utilities {
   .no-scrollbar::-webkit-scrollbar {
     display: none;
@@ -12,34 +38,15 @@
   }
 }
 
-/* Subtle editorial noise background */
-.bg-noise {
-  background-image: radial-gradient(rgba(224, 83, 117, 0.08) 1px, transparent 0);
-  background-size: 24px 24px;
-}
-
-/* Glassmorphism for Awwwards header & floating elements */
-.glass-editorial {
-  background: rgba(18, 7, 12, 0.75);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(244, 232, 216, 0.08);
-}
-
-.glass-card {
-  background: rgba(30, 11, 20, 0.6);
+/* Glassmorphism for floating header */
+.glass-header {
+  background: rgba(255, 255, 255, 0.92);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(244, 232, 216, 0.08);
 }
 
 /* Custom selection */
 ::selection {
-  background-color: #E05375;
+  background-color: var(--color-primary);
   color: #FFFFFF;
-}
-
-/* Smooth custom cursor styles */
-.cursor-hover-target {
-  cursor: pointer;
 }

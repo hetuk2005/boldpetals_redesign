@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { X, Search } from 'lucide-react';
 import { useCart } from '../context/CartContext';
-import { playChime } from '../utils/sound';
 
 export default function SearchModal({ isOpen, onClose }) {
   const [query, setQuery] = useState('');
@@ -28,30 +27,16 @@ export default function SearchModal({ isOpen, onClose }) {
       )
     : [];
 
-  const handleSelect = (item) => {
-    playChime('unboxing');
-    addToCart(item);
-    onClose();
-  };
-
   return (
-    <div className="fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-start justify-center pt-24 px-4">
-      <div className="glass-card bg-atelier-obsidian text-atelier-pearl rounded-3xl max-w-xl w-full p-6 shadow-dramatic border border-white/15 space-y-5">
+    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-start justify-center pt-20 px-4">
+      <div className="bg-white text-theme-dark rounded-2xl max-w-lg w-full p-5 shadow-2xl border border-theme-border space-y-4">
         
         {/* Header */}
-        <div className="flex items-center justify-between pb-3 border-b border-white/10">
-          <div>
-            <span className="font-syne text-[9px] uppercase tracking-[0.3em] text-atelier-gold font-bold">
-              Atelier Archive Index
-            </span>
-            <h4 className="font-italiana text-2xl text-atelier-pearl mt-0.5">
-              Search The Catalog
-            </h4>
-          </div>
-          <button
-            onClick={() => { playChime('click'); onClose(); }}
-            className="p-1 rounded-full text-atelier-sand hover:text-white"
-          >
+        <div className="flex items-center justify-between pb-2 border-b border-theme-border">
+          <h4 className="font-serif text-lg font-bold text-theme-dark">
+            Search Bold Petals Catalog
+          </h4>
+          <button onClick={onClose} className="text-theme-muted hover:text-theme-dark">
             <X className="w-5 h-5" />
           </button>
         </div>
@@ -63,44 +48,44 @@ export default function SearchModal({ isOpen, onClose }) {
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search 'Light Wala Jhumka', 'Fairy Birthday Hamper', 'Butterfly'..."
-            className="w-full bg-black/40 border border-white/15 rounded-2xl pl-11 pr-4 py-3.5 text-xs font-syne uppercase tracking-wider text-atelier-pearl placeholder-atelier-sand/40 focus:outline-none focus:border-atelier-rose"
+            placeholder="Search jhumka, hampers, butterfly clips, scrunchies..."
+            className="w-full text-xs sm:text-sm pl-10 pr-4 py-3 rounded-xl border border-theme-border focus:outline-none focus:border-theme-primary bg-theme-light"
           />
-          <Search className="w-4 h-4 text-atelier-sand/40 absolute left-4 top-4" />
+          <Search className="w-5 h-5 text-stone-400 absolute left-3 top-3" />
         </div>
 
         {/* Results */}
-        <div className="max-h-64 overflow-y-auto space-y-2">
+        <div className="max-h-60 overflow-y-auto space-y-2 text-xs">
           {!query.trim() && (
-            <div className="font-syne text-xs uppercase tracking-widest text-atelier-sand/40 text-center py-6">
-              Popular: "Light Wala Jhumka", "Shinchan Box", "16 Jhumka Tray"
+            <div className="text-stone-400 text-center py-4">
+              Try: "Light Wala Jhumka", "Fairy Birthday Hamper", "Butterfly Claws", "Shinchan"
             </div>
           )}
 
           {query.trim() && matches.length === 0 && (
-            <div className="font-syne text-xs uppercase tracking-widest text-atelier-sand/50 text-center py-6">
-              No pieces found matching "{query}".
+            <div className="text-stone-500 text-center py-3">
+              No products found matching "{query}". Try searching "jhumka" or "hamper".
             </div>
           )}
 
           {matches.map((item) => (
             <div
               key={item.id}
-              onClick={() => handleSelect(item)}
-              className="flex items-center justify-between p-3 rounded-2xl hover:bg-white/5 cursor-pointer border border-white/5 hover:border-atelier-rose/30 transition-all"
+              onClick={() => {
+                addToCart(item);
+                onClose();
+              }}
+              className="flex items-center justify-between p-2.5 hover:bg-theme-tint/40 rounded-xl cursor-pointer border border-theme-border transition-colors"
             >
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2.5">
                 <img
                   src={item.image}
                   alt={item.title}
-                  className="w-12 h-12 object-cover rounded-xl border border-white/10"
+                  className="w-10 h-10 object-cover rounded-lg border border-theme-border"
                 />
-                <div>
-                  <h5 className="font-italiana text-lg text-atelier-pearl">{item.title}</h5>
-                  <span className="font-syne text-[10px] uppercase text-atelier-gold">{item.category}</span>
-                </div>
+                <span className="font-bold text-theme-dark">{item.title}</span>
               </div>
-              <span className="font-syne text-xs font-bold text-atelier-pearl">
+              <span className="font-bold text-theme-primary">
                 ₹{item.price.toLocaleString('en-IN')}
               </span>
             </div>

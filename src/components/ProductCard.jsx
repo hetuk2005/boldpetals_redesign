@@ -1,110 +1,110 @@
 import React from 'react';
-import { Heart, Plus, Eye, Sparkles } from 'lucide-react';
+import { Heart, Plus, Eye, Star } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { useWishlist } from '../context/WishlistContext';
-import { playChime } from '../utils/sound';
 
 export default function ProductCard({ product, onQuickView }) {
   const { addToCart } = useCart();
   const { toggleWishlist, isInWishlist } = useWishlist();
   const inWishlist = isInWishlist(product.id);
 
-  const handleAdd = (e) => {
-    e.stopPropagation();
-    playChime('unboxing');
-    addToCart(product);
-  };
-
-  const handleWishlist = (e) => {
-    e.stopPropagation();
-    playChime('click');
-    toggleWishlist(product.id);
-  };
+  const discountPercent = product.originalPrice
+    ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
+    : null;
 
   return (
-    <div className="product-card group relative bg-atelier-velvet/60 rounded-2xl overflow-hidden border border-white/10 hover:border-atelier-rose/40 transition-all duration-500 flex flex-col justify-between hover:shadow-glow-rose">
+    <div className="product-card group bg-white rounded-2xl overflow-hidden border border-theme-border shadow-clean hover:shadow-card-hover transition-all duration-300 flex flex-col justify-between">
       
-      {/* Top Image Box */}
-      <div className="relative overflow-hidden aspect-[4/5] bg-atelier-obsidian">
+      {/* Top Image Frame */}
+      <div className="relative overflow-hidden aspect-[4/5] bg-stone-100">
         <img
           src={product.image}
           alt={product.title}
-          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-108 filter brightness-95 group-hover:brightness-100"
+          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-atelier-obsidian/80 via-transparent to-transparent"></div>
 
-        {/* Badge */}
-        {product.badge && (
-          <span className="absolute top-3 left-3 bg-atelier-wine/90 backdrop-blur-md text-atelier-pearl font-syne text-[9px] font-bold px-2.5 py-1 rounded-full uppercase tracking-widest border border-white/10">
-            {product.badge}
-          </span>
-        )}
+        {/* Badges */}
+        <div className="absolute top-2.5 left-2.5 flex flex-col gap-1 items-start">
+          {product.badge && (
+            <span className="bg-theme-primary text-white text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider shadow-sm">
+              {product.badge}
+            </span>
+          )}
+          {discountPercent && (
+            <span className="bg-emerald-700 text-white text-[9px] font-bold px-2 py-0.5 rounded-full uppercase shadow-sm">
+              {discountPercent}% OFF
+            </span>
+          )}
+        </div>
 
         {/* Wishlist Button */}
         <button
-          onClick={handleWishlist}
-          className={`absolute top-3 right-3 w-8 h-8 rounded-full glass-card flex items-center justify-center transition-all ${
-            inWishlist ? 'text-atelier-rose border-atelier-rose' : 'text-atelier-sand hover:text-atelier-rose'
+          onClick={(e) => {
+            e.stopPropagation();
+            toggleWishlist(product.id);
+          }}
+          className={`absolute top-2.5 right-2.5 w-8 h-8 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center transition-colors shadow-sm ${
+            inWishlist ? 'text-theme-primary' : 'text-stone-400 hover:text-theme-primary'
           }`}
-          title="Save to Wishlist"
+          title="Wishlist"
         >
-          <Heart className="w-3.5 h-3.5" fill={inWishlist ? 'currentColor' : 'none'} />
+          <Heart className="w-4 h-4" fill={inWishlist ? 'currentColor' : 'none'} />
         </button>
 
         {/* Quick View Button on Hover */}
-        <div className="absolute bottom-3 inset-x-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+        <div className="absolute bottom-2.5 inset-x-2.5 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
           <button
-            onClick={() => { playChime('click'); onQuickView(product); }}
-            className="w-full py-2.5 rounded-xl glass-editorial text-atelier-pearl font-syne text-xs uppercase tracking-widest font-semibold hover:border-atelier-gold transition-colors flex items-center justify-center gap-1.5"
+            onClick={() => onQuickView(product)}
+            className="w-full bg-white/95 text-theme-dark text-xs font-bold py-2.5 rounded-xl text-center shadow-md hover:bg-white flex items-center justify-center gap-1.5 transition-colors"
           >
-            <Eye className="w-3.5 h-3.5 text-atelier-gold" />
-            <span>Examine Piece</span>
+            <Eye className="w-3.5 h-3.5 text-theme-primary" />
+            <span>Quick View</span>
           </button>
         </div>
       </div>
 
-      {/* Info Container */}
-      <div className="p-5 flex-1 flex flex-col justify-between space-y-4">
+      {/* Info Content */}
+      <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between">
         <div>
-          <div className="flex items-center justify-between">
-            <span className="font-syne text-[9px] uppercase tracking-[0.25em] text-atelier-gold font-bold">
+          <div className="flex items-center justify-between text-[11px] text-theme-muted mb-1">
+            <span className="uppercase tracking-wider font-semibold text-theme-primary">
               {product.category}
             </span>
-            <div className="flex items-center text-[10px] text-amber-400 font-syne">
-              ★ {product.rating}
-            </div>
+            <span className="flex items-center gap-0.5 text-amber-500 font-bold">
+              <Star className="w-3 h-3 fill-amber-500 text-amber-500" />
+              <span>{product.rating}</span>
+            </span>
           </div>
 
-          <h3 className="font-italiana text-2xl text-atelier-pearl mt-1 group-hover:text-atelier-rose transition-colors line-clamp-1">
+          <h3 className="font-serif text-lg font-bold text-theme-dark group-hover:text-theme-primary transition-colors line-clamp-1">
             {product.title}
           </h3>
-          <p className="text-xs text-atelier-sand/70 font-sans font-light mt-1 line-clamp-1">
+          <p className="text-xs text-theme-muted mt-1 line-clamp-1">
             {product.subtitle}
           </p>
         </div>
 
-        {/* Price & Action */}
-        <div className="pt-3 border-t border-white/10 flex items-center justify-between">
+        {/* Price & Add to Bag */}
+        <div className="mt-4 pt-3 border-t border-theme-border/60 flex items-center justify-between">
           <div>
-            <span className="font-syne text-base font-bold text-atelier-pearl">
+            <span className="text-base font-bold text-theme-dark">
               ₹{product.price.toLocaleString('en-IN')}
             </span>
             {product.originalPrice && (
-              <span className="text-xs text-atelier-sand/40 line-through ml-2 font-syne">
+              <span className="text-xs text-stone-400 line-through ml-1.5">
                 ₹{product.originalPrice.toLocaleString('en-IN')}
               </span>
             )}
           </div>
 
           <button
-            onClick={handleAdd}
-            className="bg-white/5 hover:bg-atelier-rose text-atelier-pearl hover:text-white border border-white/10 hover:border-atelier-rose px-3.5 py-1.5 rounded-lg text-xs font-syne uppercase tracking-wider transition-all duration-300 flex items-center gap-1 shadow-sm"
+            onClick={() => addToCart(product)}
+            className="bg-theme-tint hover:bg-theme-primary hover:text-white text-theme-primary font-bold text-xs px-3.5 py-1.5 rounded-lg transition-colors flex items-center gap-1 shadow-sm"
           >
             <Plus className="w-3.5 h-3.5" />
-            <span>Bag</span>
+            <span>Add</span>
           </button>
         </div>
-
       </div>
 
     </div>

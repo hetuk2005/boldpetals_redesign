@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
 import AnnouncementBar from './components/AnnouncementBar';
 import Navbar from './components/Navbar';
+import StoryCategories from './components/StoryCategories';
 import Hero from './components/Hero';
-import MarqueeTicker from './components/MarqueeTicker';
-import CategoryScroller from './components/CategoryScroller';
+import TrustBadges from './components/TrustBadges';
+import OccasionBanners from './components/OccasionBanners';
 import ProductGrid from './components/ProductGrid';
 import HamperBuilder from './components/HamperBuilder';
-import Philosophy from './components/Philosophy';
 import Testimonials from './components/Testimonials';
-import InstagramGrid from './components/InstagramGrid';
+import InstagramReels from './components/InstagramReels';
 import Footer from './components/Footer';
+import FloatingWhatsApp from './components/FloatingWhatsApp';
 import CartDrawer from './components/CartDrawer';
 import QuickViewModal from './components/QuickViewModal';
 import SearchModal from './components/SearchModal';
@@ -25,19 +26,19 @@ export default function App() {
   const { wishlistCount } = useWishlist();
 
   const handleOpenWishlist = () => {
-    showToast(`${wishlistCount} Keepsakes Vaulted in Wishlist`);
+    showToast(`You have ${wishlistCount} saved keepsakes in Wishlist!`);
   };
 
   const handleSelectCategory = (categoryId) => {
     setActiveCategory(categoryId);
-    const element = document.getElementById('curated-edit');
+    const element = document.getElementById('hampers');
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-atelier-void text-atelier-pearl font-sans selection:bg-atelier-rose selection:text-white antialiased">
+    <div className="min-h-screen flex flex-col bg-theme-light text-theme-dark font-sans selection:bg-theme-primary selection:text-white antialiased transition-colors duration-300">
       <AnnouncementBar />
       <Navbar
         onOpenSearch={() => setIsSearchOpen(true)}
@@ -45,29 +46,39 @@ export default function App() {
       />
       
       <main className="flex-1">
+        {/* Instagram-style Category Story Highlights (Inspired by Aesthetic Magic by Anu) */}
+        <StoryCategories onSelectCategory={handleSelectCategory} />
+        
+        {/* Hero Banner */}
         <Hero />
-        <MarqueeTicker />
-        <CategoryScroller onSelectCategory={handleSelectCategory} />
+        
+        {/* Trust Badges */}
+        <TrustBadges />
+
+        {/* Shop by Occasion */}
+        <OccasionBanners onSelectCategory={handleSelectCategory} />
+
+        {/* Trending Catalog & Products */}
         <ProductGrid
           activeCategory={activeCategory}
           setActiveCategory={setActiveCategory}
           onQuickView={(product) => setQuickViewProduct(product)}
         />
-        <MarqueeTicker reverse={true} textList={[
-          "LUCKNOW BESPOKE ATELIER",
-          "UNBOXING VIDEO REQUIRED FOR REPLACEMENTS",
-          "AUTHENTIC KOREAN AESTHETIC",
-          "HANDMADE LUXURY CHESTS",
-          "HAUTE PERFUMERY & JEWELS",
-          "DIRECT DISPATCH FROM UTTAR PRADESH"
-        ]} />
+
+        {/* Interactive Custom Hamper Studio */}
         <HamperBuilder />
-        <Philosophy />
+
+        {/* Real Customer Unboxing Reviews */}
         <Testimonials />
-        <InstagramGrid />
+
+        {/* Community & Instagram Showcase */}
+        <InstagramReels />
       </main>
 
       <Footer />
+
+      {/* Floating WhatsApp Support Button */}
+      <FloatingWhatsApp />
 
       {/* Global Modals & Drawers */}
       <CartDrawer />
