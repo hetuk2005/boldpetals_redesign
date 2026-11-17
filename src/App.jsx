@@ -51,9 +51,6 @@ export default function App() {
         
         {/* Hero Banner */}
         <Hero />
-        
-        {/* Trust Badges */}
-        <TrustBadges />
 
         {/* Shop by Occasion */}
         <OccasionBanners onSelectCategory={handleSelectCategory} />
@@ -73,6 +70,9 @@ export default function App() {
 
         {/* Community & Instagram Showcase */}
         <InstagramReels />
+
+        {/* Trust & Guarantee Badges (100% Unboxing Proof, Damage-Proof Packing, Express, Lucknow) */}
+        <TrustBadges />
       </main>
 
       <Footer />
