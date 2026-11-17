@@ -52,7 +52,7 @@ export default function ProductGrid({ activeCategory, setActiveCategory, onQuick
               Trending Best Sellers
             </h2>
             <p className="text-xs text-theme-muted mt-1">
-              Authentic products from our Lucknow studio. Inspected & damage-safe packed.
+              Authentic products inspected with 100% damage-safe transit packing. Delivering across India.
             </p>
           </div>
 
@@ -92,7 +92,7 @@ export default function ProductGrid({ activeCategory, setActiveCategory, onQuick
 
         {/* Product Cards Grid */}
         {!isLoading && !error && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-6">
             {filteredProducts.map((product) => (
               <ProductCard
                 key={product.id}

@@ -23,7 +23,7 @@ export default function Philosophy() {
             <span className="italic font-serif text-atelier-rose font-normal">We capture the millisecond</span> someone's heart skips a beat."
           </h2>
           <p className="text-atelier-sand/70 text-sm sm:text-base font-sans font-light leading-relaxed max-w-2xl">
-            Born in 2023 in the cultural capital of Lucknow, Bold Petals was built on a simple conviction: ordinary gifting is forgotten in minutes. True luxury lies in the sensory rush—the velvet touch, the warm glow of a micro-LED jhumka, and the scent of French rose petals that lingers forever.
+            Born in 2023 as an online aesthetic atelier, Bold Petals was built on a simple conviction: ordinary gifting is forgotten in minutes. True luxury lies in the sensory rush—the velvet touch, the warm glow of a micro-LED jhumka, and the scent of fresh rose petals that lingers forever. Delivering all across India.
           </p>
         </div>
 

@@ -31,10 +31,10 @@ export default function Footer() {
               </span>
             </div>
             <p className="text-xs text-theme-muted max-w-sm leading-relaxed">
-              Bold Petals is more than a gift brand—it is an emotion. Handcrafted custom gift hampers, illuminated jhumkas, and timeless aesthetics based in Lucknow, Uttar Pradesh.
+              Bold Petals is more than a gift brand—it is an emotion. Handcrafted custom gift hampers, illuminated jhumkas, and timeless aesthetic pieces crafted for special celebrations across India.
             </p>
             <div className="text-xs text-theme-muted space-y-1">
-              <p><strong>Studio:</strong> Lucknow, Uttar Pradesh, India</p>
+              <p><strong>Operations:</strong> Online Atelier with All-India Express Delivery</p>
               <p><strong>Support:</strong> care@boldpetals.in | WhatsApp: +91 98765 43210</p>
             </div>
           </div>
@@ -92,7 +92,7 @@ export default function Footer() {
 
         {/* Disclaimer Bottom */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-[11px] text-theme-muted gap-4">
-          <p>© 2026 Bold Petals India. Handcrafted with love in Lucknow.</p>
+          <p>© 2026 Bold Petals India. Handcrafted with love • Delivering All Over India.</p>
           <div className="flex items-center gap-4">
             <span>UPI / GPay / NetBanking / Cards Accepted</span>
             <span>•</span>

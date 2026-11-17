@@ -20,8 +20,8 @@ export default function TrustBadges() {
     },
     {
       icon: <HeartHandshake className="w-5 h-5 text-theme-primary" />,
-      title: "Handcrafted in Lucknow",
-      desc: "Every box packed with care, silk ribbons & fresh petals"
+      title: "Handcrafted with Care",
+      desc: "Every box lovingly packed with satin ribbons, petals & cards"
     }
   ];
 

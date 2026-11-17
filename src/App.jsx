@@ -11,6 +11,7 @@ import Testimonials from './components/Testimonials';
 import InstagramReels from './components/InstagramReels';
 import Footer from './components/Footer';
 import FloatingWhatsApp from './components/FloatingWhatsApp';
+import MobileBottomNav from './components/MobileBottomNav';
 import CartDrawer from './components/CartDrawer';
 import QuickViewModal from './components/QuickViewModal';
 import SearchModal from './components/SearchModal';
@@ -38,7 +39,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-theme-light text-theme-dark font-sans selection:bg-theme-primary selection:text-white antialiased transition-colors duration-300">
+    <div className="min-h-screen flex flex-col bg-theme-light text-theme-dark font-sans selection:bg-theme-primary selection:text-white antialiased transition-colors duration-300 pb-16 lg:pb-0">
       <AnnouncementBar />
       <Navbar
         onOpenSearch={() => setIsSearchOpen(true)}
@@ -79,6 +80,9 @@ export default function App() {
 
       {/* Floating WhatsApp Support Button */}
       <FloatingWhatsApp />
+
+      {/* Sticky Mobile Bottom Navigation Bar (Phone & Tablet) */}
+      <MobileBottomNav onOpenWishlist={handleOpenWishlist} />
 
       {/* Global Modals & Drawers */}
       <CartDrawer />

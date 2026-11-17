@@ -204,7 +204,7 @@ export default function Navbar({ onOpenSearch, onOpenWishlist }) {
 
           {/* Contact / Studio note */}
           <div className="pt-3 border-t border-theme-border text-xs text-theme-muted flex justify-between items-center">
-            <span>Studio: Lucknow, UP</span>
+            <span>Online Store • All India Delivery</span>
             <a
               href="https://wa.me/919999999999"
               target="_blank"

@@ -67,7 +67,7 @@ export default function QuickViewModal({ product, onClose }) {
               </p>
               <p className="flex items-center gap-1.5">
                 <Truck className="w-3.5 h-3.5 text-theme-primary" />
-                <span>Express Dispatch from Lucknow (2-4 Days)</span>
+                <span>All India Express Delivery (2-4 Days)</span>
               </p>
             </div>
           </div>

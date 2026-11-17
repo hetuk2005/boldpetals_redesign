@@ -24,7 +24,7 @@ export default function Hero() {
             {/* Trust Pill */}
             <div className="inline-flex items-center gap-2 bg-theme-tint border border-theme-border rounded-full px-4 py-1.5 text-xs text-theme-primary font-semibold shadow-sm">
               <Sparkles className="w-4 h-4 text-theme-primary" />
-              <span>Handcrafted in Lucknow • The Destination for Aesthetic Gifts</span>
+              <span>Pan-India Online Gifting • Delivering Across India</span>
               <span className="text-theme-accent font-bold">★ 4.9/5</span>
             </div>
 

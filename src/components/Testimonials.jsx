@@ -5,21 +5,21 @@ export default function Testimonials() {
   const reviews = [
     {
       name: 'Priya Sharma',
-      city: 'New Delhi',
+      tag: 'Verified Online Order',
       initials: 'PS',
       text: "Ordered the Fairy Birthday Hamper for my bestie's 21st. The packaging blew her away! The fairy lights were glowing, the letter was neatly printed, and the jewellery felt so premium. 10/10 recommend Bold Petals!"
     },
     {
       name: 'Rhea Mathur',
-      city: 'Bengaluru',
+      tag: 'All India Express Delivery',
       initials: 'RM',
       text: "The Light Wala Jhumka is unreal! Everyone at my cousin's sangeet asked where I got them from. It's so lightweight and glows softly. Also bought the 2 metal butterfly claws which hold thick hair easily."
     },
     {
       name: 'Aniket Kulkarni',
-      city: 'Mumbai',
+      tag: 'Verified Online Order',
       initials: 'AK',
-      text: "I bought the 16 Jhumka Collector Box as a gift for my sister. The velvet finish and assortment of antique designs look way more expensive than ₹1,099. Arrived safely in Mumbai with live tracking updates."
+      text: "I bought the 16 Jhumka Collector Box as a gift for my sister. The velvet finish and assortment of antique designs look way more expensive than ₹1,099. Arrived safely with live tracking updates."
     }
   ];
 
@@ -80,7 +80,7 @@ export default function Testimonials() {
                 </div>
                 <div>
                   <h5 className="text-xs font-bold text-theme-dark">{r.name}</h5>
-                  <p className="text-[11px] text-theme-muted">Delivered to {r.city}</p>
+                  <p className="text-[11px] text-theme-muted">{r.tag}</p>
                 </div>
               </div>
             </div>

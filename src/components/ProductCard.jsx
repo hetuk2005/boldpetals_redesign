@@ -64,9 +64,9 @@ export default function ProductCard({ product, onQuickView }) {
       </div>
 
       {/* Info Content */}
-      <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between">
+      <div className="p-3 sm:p-5 flex-1 flex flex-col justify-between">
         <div>
-          <div className="flex items-center justify-between text-[11px] text-theme-muted mb-1">
+          <div className="flex items-center justify-between text-[10px] sm:text-[11px] text-theme-muted mb-1">
             <span className="uppercase tracking-wider font-semibold text-theme-primary">
               {product.category}
             </span>
@@ -76,22 +76,22 @@ export default function ProductCard({ product, onQuickView }) {
             </span>
           </div>
 
-          <h3 className="font-serif text-lg font-bold text-theme-dark group-hover:text-theme-primary transition-colors line-clamp-1">
+          <h3 className="font-serif text-sm sm:text-base lg:text-lg font-bold text-theme-dark group-hover:text-theme-primary transition-colors line-clamp-1">
             {product.title}
           </h3>
-          <p className="text-xs text-theme-muted mt-1 line-clamp-1">
+          <p className="text-[11px] sm:text-xs text-theme-muted mt-0.5 line-clamp-1">
             {product.subtitle}
           </p>
         </div>
 
         {/* Price & Add to Bag */}
-        <div className="mt-4 pt-3 border-t border-theme-border/60 flex items-center justify-between">
+        <div className="mt-3 sm:mt-4 pt-2.5 sm:pt-3 border-t border-theme-border/60 flex items-center justify-between">
           <div>
-            <span className="text-base font-bold text-theme-dark">
+            <span className="text-xs sm:text-base font-bold text-theme-dark">
               ₹{product.price.toLocaleString('en-IN')}
             </span>
             {product.originalPrice && (
-              <span className="text-xs text-stone-400 line-through ml-1.5">
+              <span className="text-[10px] sm:text-xs text-stone-400 line-through ml-1 sm:ml-1.5">
                 ₹{product.originalPrice.toLocaleString('en-IN')}
               </span>
             )}
@@ -99,10 +99,10 @@ export default function ProductCard({ product, onQuickView }) {
 
           <button
             onClick={() => addToCart(product)}
-            className="bg-theme-tint hover:bg-theme-primary hover:text-white text-theme-primary font-bold text-xs px-3.5 py-1.5 rounded-lg transition-colors flex items-center gap-1 shadow-sm"
+            className="bg-theme-tint hover:bg-theme-primary hover:text-white text-theme-primary font-bold text-[11px] sm:text-xs px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-lg transition-colors flex items-center gap-1 shadow-sm"
           >
-            <Plus className="w-3.5 h-3.5" />
-            <span>Add</span>
+            <Plus className="w-3 sm:w-3.5 h-3 sm:h-3.5" />
+            <span className="hidden xs:inline">Add</span>
           </button>
         </div>
       </div>

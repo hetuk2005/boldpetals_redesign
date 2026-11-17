@@ -6,7 +6,7 @@ export default function MarqueeTicker({ reverse = false, textList = [] }) {
     "THE FAIRY BIRTHDAY HAMPER",
     "LIGHT WALA JHUMKAS",
     "100% UNBOXING VIDEO SAFE",
-    "HANDCRAFTED IN LUCKNOW",
+    "ALL INDIA EXPRESS DELIVERY",
     "ANTI-TARNISH JEWELLERY",
     "KOREAN BUTTERFLY CLAWS",
     "ESTABLISHED 2023",
